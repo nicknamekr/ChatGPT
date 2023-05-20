@@ -19,7 +19,7 @@ async function completions(req, res) {
 
     if (MODERATION) {
         try {
-            let openAi = new OpenAIApi(new Configuration({ apiKey: key }));
+            let openAi = new OpenAIApi(new Configuration({ apiKey: key, baseUrl: 'https://api.pawan.krd/v1/completions', }));
             let response = await openAi.createModeration({
                 input: req.body.prompt,
             });
@@ -42,7 +42,7 @@ async function completions(req, res) {
     if (req.body.stream) {
         try {
             const response = await axios.post(
-                `https://api.openai.com/v1/completions`, req.body,
+                `https://api.pawan.krd/v1/completions`, req.body,
                 {
                     responseType: "stream",
                     headers: {
@@ -101,7 +101,7 @@ async function completions(req, res) {
     else {
         try {
             const response = await axios.post(
-                `https://api.openai.com/v1/completions`, req.body,
+                `https://api.pawan.krd/v1/completions`, req.body,
                 {
                     headers: {
                         Accept: "application/json",
@@ -152,7 +152,7 @@ async function chatCompletions(req, res) {
 
             if (DEBUG) console.log(`[CHAT] [${req.user.data.id}] [${req.user.data.name}] [MAX-TOKENS:${req.body.max_tokens ?? "unset"}] ${prompt}`);
 
-            let openAi = new OpenAIApi(new Configuration({ apiKey: key }));
+            let openAi = new OpenAIApi(new Configuration({ apiKey: key, baseUrl: 'https://api.pawan.krd/v1/chat/completions', }));
             let response = await openAi.createModeration({
                 input: prompt,
             });
@@ -178,7 +178,7 @@ async function chatCompletions(req, res) {
     if (req.body.stream) {
         try {
             const response = await axios.post(
-                `https://api.openai.com/v1/chat/completions`, req.body,
+                `https://api.pawan.krd/v1/chat/completions`, req.body,
                 {
                     responseType: "stream",
                     headers: {
@@ -240,7 +240,7 @@ async function chatCompletions(req, res) {
     else {
         try {
             const response = await axios.post(
-                `https://api.openai.com/v1/chat/completions`, req.body,
+                `https://api.pawan.krd/v1/chat/completions`, req.body,
                 {
                     headers: {
                         Accept: "application/json",
